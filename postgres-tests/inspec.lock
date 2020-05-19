@@ -1,0 +1,8 @@
+---
+lockfile_version: 1
+depends:
+- name: postgres-baseline
+  resolved_source:
+    git: http://github.com/dev-sec/postgres-baseline.git
+    ref: 2837a162a75727d5ace9c84435289ba010fba3b6
+  version_constraints: []

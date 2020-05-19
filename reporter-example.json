@@ -1,0 +1,13 @@
+{
+    "reporter": {
+        "automate" : {
+            "stdout" : false,
+            "url" : "https://<YOUR_AUTOMATE_URL>/data-collector/v0/",
+            "token" : "<ADMIN_TOKEN>",
+            "insecure" : true,
+            "node_name" : "inspec_test_node",
+            "node_uuid" : "<YOUR_NODE_UUID>",
+            "environment" : "prod"
+        }
+    }
+}
