@@ -6,11 +6,33 @@ pool:
 
 variables:
   imageName: 'eg_postgresql'
+  containerName: 'pg_test'
 
 steps:
+- task: DockerInstaller@0
+  displayName: Install Docker
+  inputs:
+    dockerVersion: '17.09.0-ce'
+
+- task: vsts-chef-task-install-inspec@1
+  displayName: Install InSpec
 - task: Docker@2
-  displayName: Build an image
+  displayName: Build container image
   inputs:
     repository: $(imageName)
     command: build
-    Dockerfile: **/Dockerfile
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      latest
+
+- task: Bash@3
+  displayName: Run InSpec tests
+  inputs:
+    targetType: 'inline'
+    script: |
+      docker run -d --name $(containerName) -p 5432:5432 $(imageName)
+          
+      id=$(docker inspect -f '{{ .Id }}' $(containerName))
+          
+      inspec exec postgres-tests -t docker://$id --chef-license=accept-no-persist --input-file inputs.yml
