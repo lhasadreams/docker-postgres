@@ -32,8 +32,8 @@ RUN    /etc/init.d/postgresql start &&\
     createdb -O docker docker
 
 # Alter the default user 'postgres' to assign a password.
-RUN    /etc/init.d/postgresql start &&\
-    psql --command "ALTER USER postgres PASSWORD 'postgres';"
+# RUN    /etc/init.d/postgresql start &&\
+#     psql --command "ALTER USER postgres PASSWORD 'postgres';"
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
